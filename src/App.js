@@ -8,41 +8,20 @@ function App() {
   const makeCookies = async (e) => {
     // Hint process.env.REACT_APP_API = "REACT_APP_API = "http://localhost:4000"
     e.preventDefault();
-      console.log('`${process.env.REACT_APP_API}/message`:', `${process.env.REACT_APP_API}/setCookie`)
-        axios.post(`${process.env.REACT_APP_API}/setCookie`, {
-      name: "sessionId",
-      value: "abc123",
-      options: {
-        maxAge: 3600, // expires in 1 hour
-        path: "/",
-        domain: "cookies.onrender.com",
-        secure: true,
-        httpOnly: true,
-        sameSite: "lax"
-      }
-    })
-    .then(response => {
-      console.log("Cookie set successfully!");
-    })
-    .catch(error => {
-      console.log("Error setting cookie: ", error);
+    console.log('`${process.env.REACT_APP_API}/message`:', `${process.env.REACT_APP_API}/message`)
+    const response = await axios.post(`${process.env.REACT_APP_API}/message`, {
+      message,
     });
-
+    console.log("response:", response.data.status);
+    localStorage.setItem("display", response.data.status)
   };
 
   const getCookies = async () => {
     try {
-      axios.get("https://cookies.onrender.com/getCookie", {
-      params: {
-        name: "sessionId"
-      }
-    })
-    .then(response => {
-      console.log("Cookie value: ", response.data.value);
-    })
-    .catch(error => {
-      console.log("Error retrieving cookie: ", error);
-    });
+      const getMessageCookie = await axios.get(
+        `${process.env.REACT_APP_API}/message`
+      );
+      console.log("getMessageCookie:", getMessageCookie.data.cookieMessage);
     } catch (error) {
       console.log("error:", error);
     }
