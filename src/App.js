@@ -8,6 +8,7 @@ function App() {
   const makeCookies = async (e) => {
     // Hint process.env.REACT_APP_API = "REACT_APP_API = "http://localhost:4000"
     e.preventDefault();
+      console.log('`${process.env.REACT_APP_API}/message`:', `${process.env.REACT_APP_API}/message`)
     const response = await axios.post(`${process.env.REACT_APP_API}/message`, {
       message,
     });
