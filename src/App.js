@@ -6,19 +6,23 @@ function App() {
   const [getmessage, setGetMessage] = useState("");
 
   const makeCookies = async (e) => {
+    // Hint process.env.REACT_APP_API = "REACT_APP_API = "http://localhost:4000"
     e.preventDefault();
-    const cookieChecked = await axios.post("/message", {
+    const response = await axios.post(`${process.env.REACT_APP_API}/message`, {
       message,
     });
-    console.log("cookieChecked:", cookieChecked);
+    console.log("response:", response.data.status);
+    localStorage.setItem("display", response.data.status)
   };
 
   const getCookies = async () => {
     try {
-      const getMessageCookie = await axios.get("/message");
-      console.log('getMessageCookie:', getMessageCookie.data.cookieMessage)
+      const getMessageCookie = await axios.get(
+        `${process.env.REACT_APP_API}/message`
+      );
+      console.log("getMessageCookie:", getMessageCookie.data.cookieMessage);
     } catch (error) {
-      console.log('error:', error)
+      console.log("error:", error);
     }
   };
 
