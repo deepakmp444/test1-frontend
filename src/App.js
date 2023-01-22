@@ -21,6 +21,7 @@ function App() {
       const getMessageCookie = await axios.get(
         `${process.env.REACT_APP_API}/message`
       );
+       setGetMessage(getMessageCookie.data.cookieMessage);
       console.log("getMessageCookie:", getMessageCookie.data.cookieMessage);
     } catch (error) {
       console.log("error:", error);
@@ -44,6 +45,8 @@ function App() {
       <button type="button" onClick={getCookies}>
         Get Cookies
       </button>
+ <br />
+{getmessage === "undefined" ? "undefined Value" : getmessage}
     </div>
   );
 }
