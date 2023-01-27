@@ -27,7 +27,7 @@ function App() {
 
   const handleClearCookie = async () => {
     try {
-      const getMessageCookie = await axios.get(
+      const getMessageCookie = await axios.post(
         `${process.env.REACT_APP_API}/clear`
       );
 
