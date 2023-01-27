@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 function App() {
   const [message, setMessage] = useState("");
   const [getmessage, setGetMessage] = useState("");
+  const [cookies, setCookie] = useCookies(["userOrder"]);
   const makeCookies = async (e) => {
     // Hint process.env.REACT_APP_API = "REACT_APP_API = "http://localhost:4000"
     e.preventDefault();
@@ -35,6 +37,19 @@ function App() {
     } catch (error) {}
   };
 
+  const setCookieHandle = () => {
+    setCookie("smAddress", "finding", { path: "/" });
+  };
+  
+  const setGetCookieHandle = async () => {
+    try {
+      const response = await axios.post(`https://cookies.onrender.com/smaddress`);
+      console.log("response:", response);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   return (
     <div>
       <h1>center</h1>
@@ -58,6 +73,14 @@ function App() {
       </button>
       <br />
       {getmessage === "undefined" ? <h1>undefined</h1> : getmessage}
+      <br />
+      <button type="button" onClick={setCookieHandle}>
+        Set Cookies
+      </button>
+      <br />
+      <button type="button" onClick={setGetCookieHandle}>
+        Get Cookies of SM
+      </button>
     </div>
   );
 }
