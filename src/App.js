@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 function App() {
   const [message, setMessage] = useState("");
   const [getmessage, setGetMessage] = useState("");
-  const [cookies, setCookie] = useCookies(["name"]);
   const makeCookies = async (e) => {
     // Hint process.env.REACT_APP_API = "REACT_APP_API = "http://localhost:4000"
     e.preventDefault();
